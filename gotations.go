@@ -1,31 +1,37 @@
 package main
 
 import (
-    "encoding/json"
     "fmt"
     "math/rand"
     "os"
-    "strings"
     "log"
+    "gopkg.in/yaml.v3"
 )
 
 type Quote struct {
     Text  string
     Author string
 }
+type YAMLFile struct {
+    Quotes []Quote `yaml:"quotes"`
+}
 
 func main() {
-    quotesPath := os.Args[1]
-    data, err := os.ReadFile(quotesPath)
+    //if len(os.Args) < 1 {
+    //    log.Fatal("Error")
+    //}
+    quotesFile := os.Args[1]
+    data, err := os.Open(quotesFile)
     if err != nil {
-        log.Fatal("Error during Readfile(): ",err)
+        log.Fatal("Error during os.Open(): ",err)
     }
-    var quotes []Quote
-    err = json.NewDecoder(strings.NewReader(string(data))).Decode(&quotes)
+    defer data.Close()
+    var quotes YAMLFile
+    err = yaml.NewDecoder(data).Decode(&quotes)
     if err != nil {
-        log.Fatal("Error during NewDecoder(): ",err)
+        log.Fatal("Error during yaml.NewDecoder(): ",err)
     }
-    var randQuote = quotes[rand.Intn(len(quotes)-0)]
+    var randQuote = quotes.Quotes[rand.Intn(len(quotes.Quotes)-0)]
     fmt.Println(randQuote.Text)
     if randQuote.Author != "" {
         fmt.Println(" - " + randQuote.Author)
