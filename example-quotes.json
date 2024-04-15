@@ -1,0 +1,14 @@
+[
+    {
+        "text": "This is a quote",
+        "author": "Gramps"
+    },{
+        "text": "Moose is a good boi",
+        "author": "Moose"
+    }, {
+        "text": "Maple is a good gorl",
+        "author": "Maple"
+    }, {
+        "text": "This is a quote without an author"
+    }
+]
