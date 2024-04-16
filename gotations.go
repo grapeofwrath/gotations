@@ -17,11 +17,7 @@ type YAMLFile struct {
 }
 
 func main() {
-    //if len(os.Args) < 1 {
-    //    log.Fatal("Error")
-    //}
-    quotesFile := os.Args[1]
-    data, err := os.Open(quotesFile)
+    data, err := os.Open(os.Args[1])
     if err != nil {
         log.Fatal("Error during os.Open(): ",err)
     }
