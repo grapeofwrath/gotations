@@ -1,4 +1,4 @@
-module gotations/mod
+module gotations
 
 go 1.20
 

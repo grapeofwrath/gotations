@@ -8,6 +8,7 @@ import (
     "log"
     "path/filepath"
     "gopkg.in/yaml.v3"
+    "slices"
 )
 
 type Quote struct {
@@ -17,6 +18,10 @@ type Quote struct {
 
 func main() {
     dataExt := filepath.Ext(os.Args[1])
+    validExt := []string{".json", ".yaml"}
+    if len(os.Args) < 2 || slices.Contains(validExt, dataExt) != true {
+        log.Fatal("Error during runtime: expected JSON or YAML filepath")
+    }
     data, err := os.Open(os.Args[1])
     if err != nil {log.Fatal("Error during os.Open(): ",err)}
     defer data.Close()
