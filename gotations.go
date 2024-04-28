@@ -5,10 +5,9 @@ import (
     "fmt"
     "math/rand"
     "os"
-    "log"
-    "path/filepath"
     "gopkg.in/yaml.v3"
-    "slices"
+
+    "github.com/charmbracelet/log"
 )
 
 type Quote struct {
@@ -17,27 +16,27 @@ type Quote struct {
 }
 
 func main() {
-    dataExt := filepath.Ext(os.Args[1])
-    validExt := []string{".json", ".yaml"}
-    if len(os.Args) < 2 || slices.Contains(validExt, dataExt) != true {
-        log.Fatal("Error during runtime: expected JSON or YAML filepath")
+    if len(os.Args) < 2 {
+        log.Fatal("Error during runtime: expected JSON or YAML quotes filepath")
     }
+    dataString, err := os.ReadFile(os.Args[1])
+        if err != nil {log.Fatal(err)}
+    validJson := json.Valid([]byte(dataString))
     data, err := os.Open(os.Args[1])
-    if err != nil {log.Fatal("Error during os.Open(): ",err)}
+        if err != nil {log.Fatal(err)}
     defer data.Close()
     var quotes []Quote
-    if dataExt == ".json" {
+    if validJson {
         err = json.NewDecoder(data).Decode(&quotes)
-        if err != nil {log.Fatal("Error during json.NewDecoder(): ",err)}
-    }
-    if dataExt == ".yaml" {
+            if err != nil {log.Fatal(err)}
+    } else {
         err = yaml.NewDecoder(data).Decode(&quotes)
-        if err != nil {log.Fatal("Error during yaml.NewDecoder(): ",err)}
+            if err != nil {log.Fatal(err)}
     }
     var randQuote = quotes[rand.Intn(len(quotes)-0)]
     fmt.Println(randQuote.Text)
     if randQuote.Author != "" {
         fmt.Println(" - " + randQuote.Author)
-        os.Exit(0)
     }
+    os.Exit(0)
 }
