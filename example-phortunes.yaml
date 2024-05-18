@@ -1,13 +1,13 @@
 - "text": "This is a quote"
-  "author": "Gramps"
+  "source": "Gramps"
 - "text": "Moose is a good boi"
-  "author": "Moose"
+  "source": "Moose"
 - "text": "Maple is a good gorl"
-  "author": "Maple"
+  "source": "Maple"
 - "text": "This is a quote without an author"
 - "text": |-
     "This is a
     multiline quote"
-  "author": "Me, Myself, and I"
+  "source": "Me, Myself, and I"
 - "text": ":>"
 - "text": "hi"
