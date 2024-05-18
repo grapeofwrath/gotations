@@ -14,7 +14,7 @@
 
 buildGoApplication {
   pname = "phortune";
-  version = "0.5.1";
+  version = "0.5.2";
   pwd = ./.;
   src = ./.;
   modules = ./gomod2nix.toml;

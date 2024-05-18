@@ -51,7 +51,7 @@ func main() {
     }
 
     phPath = filepath.Join(configDir, "phortune", "phortunes")
-    if os.Args[1] != "" {
+    if len(os.Args) > 1 {
         phPath = os.Args[1]
     }
     phPathCheck, err := filepath.Glob(phPath)
